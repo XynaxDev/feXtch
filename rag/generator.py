@@ -4,7 +4,7 @@
 #
 # Author  : Akash Kumar
 # Email   : akashkumar.cs27@gmail.com
-# GitHub  : github.com/akashkumar
+# GitHub  : github.com/XynaxDev
 # Project : feXtch — local AI semantic file search
 #
 # Architecture
@@ -246,7 +246,7 @@ def build_pipeline(llm_model: str | None = None):
         max_tokens=LLM_MAX_TOKENS,
     )
 
-    tool_list   = make_tools(db, db, llm=llm)   # llm powers SelfQueryRetriever in search_files
+    tool_list   = make_tools(db, db, llm=llm)  
     tools_by_name = {t.name: t for t in tool_list}
     llm_with_tools = llm.bind_tools(tool_list)
 
@@ -292,35 +292,6 @@ def run_chat():
                ('deleted', 'removed', 'trash', 'recycle', 'bin', 'gone', 'missing')):
             del_msg = 'feXtch cannot track deleted files -- only indexes existing files. '\
                       'Run syncer.py to find what was removed since last sync.'
-            print(f'\nfeXtch > {del_msg}\n')
-            history.append(('human', question))
-            history.append(('assistant', del_msg))
-            continue
-
-
-        # Deleted files query
-        _del_words = {'deleted','removed','trash','recycle','bin','gone','missing'}
-        if any(w in question.lower().split() for w in _del_words):
-            answer = (
-                "feXtch cannot track deleted files — it only indexes files that exist on disk.\n"
-                "To find what was deleted since your last sync, run syncer.py:\n"
-                "  python rag\\syncer.py\n"
-                "Syncer compares the current filesystem against the index and reports removed entries."
-            )
-            print(f"\nfeXtch > {answer}\n")
-            history.append(("human", question))
-            history.append(("assistant", answer))
-            continue
-
-        _del_words = {'deleted','removed','trash','recycle','bin','gone','missing'}
-        if any(w in question.lower().split() for w in _del_words):
-            del_msg = (
-                'feXtch cannot track deleted files '
-                '-- it only indexes files that exist on disk.\n'
-                'To find what was deleted since your last sync, run:\n'
-                '  python rag\\syncer.py\n'
-                'Syncer compares filesystem against index and reports removed entries.'
-            )
             print(f'\nfeXtch > {del_msg}\n')
             history.append(('human', question))
             history.append(('assistant', del_msg))

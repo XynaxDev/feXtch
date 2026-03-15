@@ -4,7 +4,7 @@
 #
 # Author  : Akash Kumar
 # Email   : akashkumar.cs27@gmail.com
-# GitHub  : github.com/akashkumar
+# GitHub  : github.com/XynaxDev
 # Project : feXtch — local AI semantic file search
 #
 # Run this whenever you want the index to pick up new / modified / deleted files.
